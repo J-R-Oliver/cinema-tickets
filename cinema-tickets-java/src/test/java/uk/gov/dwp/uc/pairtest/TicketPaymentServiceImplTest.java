@@ -145,7 +145,7 @@ class TicketServiceImplImplTest {
 
 
             new TicketTypeRequest[]{
-                new TicketTypeRequest(ADULT, 1),
+                new TicketTypefRequest(ADULT, 1),
                 new TicketTypeRequest(ADULT, 5),
                 new TicketTypeRequest(ADULT, 2)},
             8
