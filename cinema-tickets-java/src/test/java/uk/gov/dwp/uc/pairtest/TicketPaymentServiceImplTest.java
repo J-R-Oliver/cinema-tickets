@@ -50,13 +50,15 @@ class TicketServiceImplImplTest {
   @Test
   void makePayment_ThrowsExceptionWhenIdIsLessThanOne() {
     TicketTypeRequest[] ticketTypeRequests = {
-        new TicketTypeRequest(INFANT, 5),
-        new TicketTypeRequest(CHILD, 5),
-        new TicketTypeRequest(ADULT, 10)
+      new TicketTypeRequest(INFANT, 5),
+      new TicketTypeRequest(CHILD, 5),
+      new TicketTypeRequest(ADULT, 10)
     };
 
-    InvalidPurchaseException exception = assertThrows(InvalidPurchaseException.class,
-        () -> underTest.purchaseTickets(0L, ticketTypeRequests));
+    InvalidPurchaseException exception =
+        assertThrows(
+            InvalidPurchaseException.class,
+            () -> underTest.purchaseTickets(0L, ticketTypeRequests));
 
     assertEquals("Invalid accountId. accountId should be greater than 0.", exception.getMessage());
   }
@@ -64,99 +66,106 @@ class TicketServiceImplImplTest {
   @Test
   void makePayment_ThrowsExceptionWhenNoOfTicketsIsGreaterThanTwenty() {
     TicketTypeRequest[] ticketTypeRequests = {
-        new TicketTypeRequest(INFANT, 7),
-        new TicketTypeRequest(CHILD, 8),
-        new TicketTypeRequest(ADULT, 9)
+      new TicketTypeRequest(INFANT, 7),
+      new TicketTypeRequest(CHILD, 8),
+      new TicketTypeRequest(ADULT, 9)
     };
 
-    InvalidPurchaseException exception = assertThrows(InvalidPurchaseException.class,
-        () -> underTest.purchaseTickets(ACCOUNT_ID, ticketTypeRequests));
+    InvalidPurchaseException exception =
+        assertThrows(
+            InvalidPurchaseException.class,
+            () -> underTest.purchaseTickets(ACCOUNT_ID, ticketTypeRequests));
 
-    assertEquals("Invalid purchase tickets request. Total number of tickets should not exceed 20.",
+    assertEquals(
+        "Invalid purchase tickets request. Total number of tickets should not exceed 20.",
         exception.getMessage());
   }
 
   @Test
   void makePayment_ThrowsExceptionWhenInfantOrChildTicketsArePurchasedWithoutAdultTickets() {
     TicketTypeRequest[] ticketTypeRequests = {
-        new TicketTypeRequest(INFANT, 5),
-        new TicketTypeRequest(CHILD, 5)
+      new TicketTypeRequest(INFANT, 5), new TicketTypeRequest(CHILD, 5)
     };
 
-    InvalidPurchaseException exception = assertThrows(InvalidPurchaseException.class,
-        () -> underTest.purchaseTickets(ACCOUNT_ID, ticketTypeRequests));
+    InvalidPurchaseException exception =
+        assertThrows(
+            InvalidPurchaseException.class,
+            () -> underTest.purchaseTickets(ACCOUNT_ID, ticketTypeRequests));
 
     assertEquals(
-        "Invalid purchase tickets request. Infant or child tickets must be purchased with a least" +
-            " 1 adult ticket.",
+        "Invalid purchase tickets request. Infant or child tickets must be purchased with a least"
+            + " 1 adult ticket.",
         exception.getMessage());
   }
 
   @Test
   void makePayment_ThrowsExceptionWhenMoreInfantTicketsArePurchasedThanAdultTickets() {
     TicketTypeRequest[] ticketTypeRequests = {
-        new TicketTypeRequest(INFANT, 10),
-        new TicketTypeRequest(CHILD, 5),
-        new TicketTypeRequest(ADULT, 5)
+      new TicketTypeRequest(INFANT, 10),
+      new TicketTypeRequest(CHILD, 5),
+      new TicketTypeRequest(ADULT, 5)
     };
 
-    InvalidPurchaseException exception = assertThrows(InvalidPurchaseException.class,
-        () -> underTest.purchaseTickets(ACCOUNT_ID, ticketTypeRequests));
+    InvalidPurchaseException exception =
+        assertThrows(
+            InvalidPurchaseException.class,
+            () -> underTest.purchaseTickets(ACCOUNT_ID, ticketTypeRequests));
 
     assertEquals(
-        "Invalid purchase tickets request. Infant tickets should be less than or equal to adult " +
-            "tickets.",
+        "Invalid purchase tickets request. Infant tickets should be less than or equal to adult "
+            + "tickets.",
         exception.getMessage());
   }
 
   private static Stream<Arguments> makePayment_totalAmountToPay() {
     return Stream.of(
-        arguments(new TicketTypeRequest[]{
-                new TicketTypeRequest(INFANT, 5),
-                new TicketTypeRequest(CHILD, 5),
-                new TicketTypeRequest(ADULT, 10)},
-            250
-        ),
-        arguments(new TicketTypeRequest[]{
-                new TicketTypeRequest(ADULT, 1),
-                new TicketTypeRequest(ADULT, 5),
-                new TicketTypeRequest(ADULT, 2)},
-            160
-        ), arguments(new TicketTypeRequest[]{
-                new TicketTypeRequest(CHILD, 2),
-                new TicketTypeRequest(CHILD, 5),
-                new TicketTypeRequest(ADULT, 1),
-                new TicketTypeRequest(ADULT, 4)},
-            170
-        )
-
-    );
+        arguments(
+            new TicketTypeRequest[] {
+              new TicketTypeRequest(INFANT, 5),
+              new TicketTypeRequest(CHILD, 5),
+              new TicketTypeRequest(ADULT, 10)
+            },
+            250),
+        arguments(
+            new TicketTypeRequest[] {
+              new TicketTypeRequest(ADULT, 1),
+              new TicketTypeRequest(ADULT, 5),
+              new TicketTypeRequest(ADULT, 2)
+            },
+            160),
+        arguments(
+            new TicketTypeRequest[] {
+              new TicketTypeRequest(CHILD, 2),
+              new TicketTypeRequest(CHILD, 5),
+              new TicketTypeRequest(ADULT, 1),
+              new TicketTypeRequest(ADULT, 4)
+            },
+            170));
   }
 
   private static Stream<Arguments> makePayment_totalSeatsToAllocate() {
     return Stream.of(
-        arguments(new TicketTypeRequest[]{
-                new TicketTypeRequest(INFANT, 5),
-                new TicketTypeRequest(CHILD, 5),
-                new TicketTypeRequest(ADULT, 10)},
-            15
-        ),
         arguments(
-
-
-            new TicketTypeRequest[]{
-                new TicketTypefRequest(ADULT, 1),
-                new TicketTypeRequest(ADULT, 5),
-                new TicketTypeRequest(ADULT, 2)},
-            8
-        ), arguments(new TicketTypeRequest[]{
-                new TicketTypeRequest(CHILD, 2),
-                new TicketTypeRequest(CHILD, 5),
-                new TicketTypeRequest(ADULT, 1),
-                new TicketTypeRequest(ADULT, 4)},
-            12
-        )
-
-    );
+            new TicketTypeRequest[] {
+              new TicketTypeRequest(INFANT, 5),
+              new TicketTypeRequest(CHILD, 5),
+              new TicketTypeRequest(ADULT, 10)
+            },
+            15),
+        arguments(
+            new TicketTypeRequest[] {
+              new TicketTypefRequest(ADULT, 1),
+              new TicketTypeRequest(ADULT, 5),
+              new TicketTypeRequest(ADULT, 2)
+            },
+            8),
+        arguments(
+            new TicketTypeRequest[] {
+              new TicketTypeRequest(CHILD, 2),
+              new TicketTypeRequest(CHILD, 5),
+              new TicketTypeRequest(ADULT, 1),
+              new TicketTypeRequest(ADULT, 4)
+            },
+            12));
   }
 }
