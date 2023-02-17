@@ -77,7 +77,7 @@ class TicketServiceImplTest {
             () -> underTest.purchaseTickets(ACCOUNT_ID, ticketTypeRequests));
 
     assertEquals(
-        "Invalid purchase tickets request. Total number of tickets should not exceed 20.",
+        "Invalid purchase tickets request. Total number of tickets must not exceed 20.",
         exception.getMessage());
   }
 
@@ -93,7 +93,7 @@ class TicketServiceImplTest {
             () -> underTest.purchaseTickets(ACCOUNT_ID, ticketTypeRequests));
 
     assertEquals(
-        "Invalid purchase tickets request. Infant or child tickets must be purchased with a least"
+        "Invalid purchase tickets request. Infant or child tickets must be purchased with at least"
             + " 1 adult ticket.",
         exception.getMessage());
   }

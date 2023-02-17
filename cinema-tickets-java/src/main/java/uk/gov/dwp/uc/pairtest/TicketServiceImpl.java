@@ -67,13 +67,13 @@ public class TicketServiceImpl implements TicketService {
 
     if (totalNoOfTickets > 20) {
       throw new InvalidPurchaseException(
-          "Invalid purchase tickets request. Total number of tickets should not exceed 20.");
+          "Invalid purchase tickets request. Total number of tickets must not exceed 20.");
     }
 
     if (!isPurchasingAdultTicket) {
       throw new InvalidPurchaseException(
           "Invalid purchase tickets request. Infant or child tickets must be purchased with"
-              + " a least 1 adult ticket.");
+              + " at least 1 adult ticket.");
     }
 
     if (adultTicketsTotal < infantTicketsTotal) {
