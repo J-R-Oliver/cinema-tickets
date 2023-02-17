@@ -22,8 +22,8 @@ public class TicketServiceImpl implements TicketService {
   /*
    * Should only have private methods other than the one below.
    *
-   * Split solution into two for loops. Though slightly less performant, this aids in readability
-   * and reusability.
+   * Split solution into two for loops. Though less performant, this aids in readability and
+   * reusability.
    */
   @Override
   public void purchaseTickets(Long accountId, TicketTypeRequest... ticketTypeRequests)
