@@ -21,7 +21,7 @@ import static uk.gov.dwp.uc.pairtest.domain.TicketTypeRequest.Type.ADULT;
 import static uk.gov.dwp.uc.pairtest.domain.TicketTypeRequest.Type.CHILD;
 import static uk.gov.dwp.uc.pairtest.domain.TicketTypeRequest.Type.INFANT;
 
-class TicketServiceImplImplTest {
+class TicketServiceImplTest {
 
   private static final Long ACCOUNT_ID = 1L;
   private final TicketPaymentService ticketPaymentService = mock(TicketPaymentService.class);
@@ -154,7 +154,7 @@ class TicketServiceImplImplTest {
             15),
         arguments(
             new TicketTypeRequest[] {
-              new TicketTypefRequest(ADULT, 1),
+              new TicketTypeRequest(ADULT, 1),
               new TicketTypeRequest(ADULT, 5),
               new TicketTypeRequest(ADULT, 2)
             },
